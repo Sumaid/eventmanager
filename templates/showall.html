@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+   <h2 style = "text-align: center;">{{ message }}</h2>
+   <body link="blue">
+    <fieldset>
+      <legend>User Details</legend>
+      <table border = 1 cellspacing=5 width=50% height=50px bgcolor="#ffff9f">
+        <tr>
+	         <th>Sr.No</th>
+            <th>Name</th>
+            <th>Email-ID</th>
+            <th>Contact No</th>
+            <th>View</th>
+            <th>Delete</th>
+        </tr>
+         
+         {% for row in rows if row["username"] %}
+            <tr>
+               <td> {{loop.index}}</td>
+               <td>{{row["username"]}}</td>
+               <td>{{row["email"]}}</td>
+               <td>{{row["contact"]}}</td>
+               <td><a href="/calendar/{{row['username']}}">Click</a></td>
+               <td><a href="/del/{{row['username']}}">Click</a></td>
+            </tr>
+	 {% else %}
+	    <h1>No User found!</h1>
+         {% endfor %}
+      </table> 
+      <fieldset>
+      <br><a href = "/">Go back to home page</a>
+   </body>
+</html>

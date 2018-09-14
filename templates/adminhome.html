@@ -1,0 +1,22 @@
+<html>
+
+   <head>
+      <script type = "text/javascript" 
+         src = "{{ url_for('static', filename = 'main.js') }}" ></script>
+   </head>
+   
+   {% extends "base.html" %}
+   {% block title %}Home{% endblock %}
+   {% block body %}
+    <fieldset>
+     <legend>Options</legend>
+     <table border = 0 cellspacing=50 width=50% height=50px >
+      <tr>
+	  <th>
+	  <a href =  "http://localhost:5000/showall">Click here to edit users</a>
+    </th>
+      </tr>
+     </table>
+     </fieldset>
+   {% endblock %}
+</html>

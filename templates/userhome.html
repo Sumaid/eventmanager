@@ -1,0 +1,113 @@
+<html>
+
+   <head>
+    <title>Home</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+      <script type = "text/javascript" 
+         src = "{{ url_for('static', filename = 'main.js') }}" ></script>
+      <style> 
+      .tcolor{
+        color: white;
+        font-size: 3vh;
+      }
+      .col{
+        float: left;
+        width: 50%;
+        height: 80%;
+        color: white;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position:  relative;
+      }
+      body{
+        background-image: url(" {{ url_for('static', filename = 'download.jpeg') }} ");
+      }
+      #eves{
+                background-image: url("{{ url_for('static', filename = 'events.jpg') }}");
+                 opacity: 0.5;
+      }
+      #eves:hover {
+                 opacity: 1;
+      }
+      #exps{
+                background-image: url("{{ url_for('static', filename = 'expenses.jpg') }}");
+                opacity: 0.5;
+      }
+      #exps:hover {
+                 opacity: 1;
+      }
+      .brow{
+        width: 100%;
+        float: left;
+        height: 10%;
+        font-size: 5vh;
+        color: white;
+        text-align: center;
+        font-family: 
+      }
+      .opts{
+        font-size: 4vh;
+        color: white;
+        position: absolute;
+        left: 40%;
+        top: 40%;
+        color: white;
+        }
+      .bt1{
+        font-size: 4vh;
+        text-align: center;
+        height: 1
+        color:white;
+
+      }
+        #op1{
+          top: 50%;
+          color: white;
+        }
+        #op2{
+          top: 80%;
+          color: white;
+        }
+        #op3{
+          top: 50%;
+          color: white;
+        }
+        #op4{
+          top: 80%;
+          color: white;
+        }
+        #op{
+          top: 20%;
+          color: white;
+        }
+        #opt{
+          top: 20%;
+          color: white;
+        }        
+        </style>
+
+      }
+      }
+
+   </head>
+    <div class="container">
+      <div class="header clearfix">
+      <p class="bt1" style="color: white ">Welcome {{uname}}!</p>
+        <nav>
+          <ul class="nav nav-pills pull-right tcolor">
+            <li role="presentation" ><a class="tcolor" href="/userhome">Home</a></li>
+            <li role="presentation" class="tcolor">
+               <a class="tcolor" href="/logout">Logout</a>
+             </li>
+          </ul>
+        </nav>
+      </div>
+      </div>
+    <div class="col" id="eves"><a href="http://localhost:5000/addeve" class="btn btn-primary opts" id="op">New Event</a> <a href="http://localhost:5000/eve_disp" class="btn btn-primary opts" id="op1">My Events</a> <a href="http://localhost:5000/evecal" class="btn btn-primary opts" id="op2">Events Calendar</a></div>
+    <div class="col" id="exps"><a href="http://localhost:5000/addexp" class="btn btn-primary opts" id="opt">New Expenditure</a> <a href="http://localhost:5000/exp_disp" class="btn btn-primary opts" id="op3">My Expenditures</a> <a href="http://localhost:5000/exptime" class="btn btn-primary opts" id="op4">Expenditures Timeline</a></div>
+   
+</html>

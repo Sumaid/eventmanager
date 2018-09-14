@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+google.charts.setOnLoadCallback(drawChart1);
+function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Day');
+      data.addColumn('number', 'Expenditure');
+      var costs = {{ liss | tojson }}
+      var listt = []
+      for (i = 0; i<{{ last }}; i++) {
+        listt[i] = [i, costs[i-1]]
+      } 
+      data.addRows(listt);
+
+      var options = {
+        title: 'Expenditure Day-wise Distribution',       
+        hAxis: {
+          title: 'Day',
+          format: '#'          
+        },
+        vAxis: {
+          title: 'Amount'
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+
+function drawChart1() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Category');
+      data.addColumn('number', 'Spent');
+      var listt = []
+      var catg = {{ sum1 | tojson }}
+      var prc = {{ sum2 | tojson }}
+      var inde = {{ ind }}
+      for(var i=0; i<inde; i++) {
+        listt[i] = [catg[i], prc[i]]
+      }
+      data.addRows(listt);
+
+      var options = {'title':'Monthly Expenditure Category Wise',
+                       'width':400,
+                       'height':300};
+      var chart = new google.visualization.PieChart(document.getElementById('pie'));
+        
+      chart.draw(data, options);
+      }     
+
+</script>
+
+<style>
+* {box-sizing: border-box;}
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+.month {
+    width: 100%;
+    background: #1abc9c;
+    text-align: center;
+    height: 10vh;
+}
+
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+.month ul li {
+    color: white;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.month .prev {
+    float: left;
+}
+
+.month .next {
+    float: right;
+}
+
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #ddd;
+}
+
+.weekdays li {
+    display: inline-block;
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+}
+
+.days {
+    padding: 10px 0;
+    background: #eee;
+    margin: 0;
+    height: 84vh;
+}
+
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:25px;
+    color: #777;
+    height: 14vh;
+}
+
+.days li .active {
+    padding: 5vh;
+    background: #1abc9c;
+    color: white !important
+}
+
+.days li .used {
+    padding: 5vh;
+    background: #f3f018;
+    color: white !important
+}
+
+.secret{
+  visibility: hidden;
+}
+
+.jk1{
+  width: 10%;
+  float: left;
+}
+
+.jk2{
+  width: 10%;
+  float: right;
+}
+
+.cen{
+  color: white;
+  float: left;
+  width: 80%;
+}
+</style>
+</head>
+<body>
+<div class="month" onload="drawColumnChart();">      
+  <div class="jk1">
+      <form action = "http://localhost:5000/preexp" method = "post" display>
+    <input type="hidden" name="mona" value={{mon}}>
+        <input type="hidden" name="yra" value={{yr}}>  
+    <input type="submit" value=&#10094>
+      </form>      
+   </div> 
+    <div class="cen">
+               {% if mon == 1 %}
+                  <h1>January {{yr}}</h1>
+               {% elif mon == 2 %}
+                  <h1> February {{yr}}</h1>
+               {% elif mon == 3 %}
+                  <h1> March {{yr}}</h1>
+               {% elif mon == 4 %}
+                  <h1> April {{yr}}</h1>
+               {% elif mon == 5 %}
+                  <h1> May {{yr}}</h1>
+               {% elif mon == 6 %}
+                  <h1> June {{yr}}</h1>
+               {% elif mon == 7 %}
+                  <h1> July {{yr}}</h1>
+               {% elif mon == 8 %}
+                  <h1> August {{yr}}</h1>
+               {% elif mon == 9 %}
+                  <h1> September {{yr}}</h1>
+               {% elif mon == 10 %}
+                  <h1> October {{yr}}</h1>
+               {% elif mon == 11 %}
+                  <h1> November {{yr}}</h1>
+               {% elif mon == 12 %}
+                  <h1> December {{yr}}</h1>
+               {% endif %}
+  </div>   
+    <div class="jk2">  <form action = "http://localhost:5000/nextexp" method = "post">
+    <input type="hidden" name="mona" value={{mon}}>
+        <input type="hidden" name="yra" value={{yr}}>  
+    <input type="submit" value=&#10095>  
+    </form>
+    </div>
+
+</div>
+  <div id="chart_div"></div>
+  <br>
+  <br>
+  <div id="pie"></div>
+  <div> <a href='/'>Go back to Home Page </a>
+</body>
+</html>

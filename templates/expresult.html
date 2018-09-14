@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+   <h2 style = "text-align: center;">{{ message }}</h2>
+   <body>
+   <fieldset>
+         <legend>Expenditure Details</legend>
+      <table border = 1 cellspacing=5 width=30% height=50px bgcolor="#ffff9f" >
+   <tr >
+               <th> KEY </th>
+               <th> VALUE </td>
+         </tr>
+         {% for key, value in result.items() %}
+            <tr>
+               <td> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+            
+         {% endfor %}
+            <tr>
+                <td> Day </td>
+               {% if pday == 0 %}
+                  <td>Monday</td>
+               {% elif pday == 1 %}
+                  <td> Tuesday </td>
+               {% elif pday == 2 %}
+                  <td> Wednesday </td>
+               {% elif pday == 3 %}
+                  <td> Thursday </td>
+               {% elif pday == 4 %}
+                  <td> Friday </td>
+               {% elif pday == 5 %}
+                  <td> Saturday </td>
+               {% elif pday == 6 %}
+                  <td> Sunday </td>
+               {% endif %}
+            </tr>
+      </table>
+    </fieldset>
+    <br><a href = "/">Go back to home page</a> 
+   </body>
+</html>

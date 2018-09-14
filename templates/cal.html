@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+* {box-sizing: border-box;}
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+.month {
+    width: 100%;
+    background: #1abc9c;
+    text-align: center;
+    height: 10vh;
+}
+
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+.month ul li {
+    color: white;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.month .prev {
+    float: left;
+}
+
+.month .next {
+    float: right;
+}
+
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #ddd;
+}
+
+.weekdays li {
+    display: inline-block;
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+}
+
+.days {
+    padding: 10px 0;
+    background: #eee;
+    margin: 0;
+    height: 84vh;
+}
+
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:25px;
+    color: #777;
+    height: 14vh;
+}
+
+.days li .active {
+    padding: 5vh;
+    background: #1abc9c;
+    color: white !important
+}
+
+.days li .used {
+    padding: 5vh;
+    background: #f3f018;
+    color: white !important
+}
+
+.secret{
+  visibility: hidden;
+}
+
+.jk1{
+  width: 10%;
+  float: left;
+}
+
+.jk2{
+  width: 10%;
+  float: right;
+}
+.jk3 
+{
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px
+}
+.cen{
+  color: white;
+  float: left;
+  width: 80%;
+}
+</style>
+</head>
+<body>
+<div class="month">      
+  <div class="jk1">
+      <form action = "http://localhost:5000/precal" method = "post" display>
+    <input type="hidden" name="mona" value={{mon}}>
+        <input type="hidden" name="yra" value={{yr}}>  
+    <input type="submit" value=&#10094>
+      </form>      
+   </div> 
+    <div class="cen">
+               {% if mon == 1 %}
+                  <h1>January {{yr}}</h1>
+               {% elif mon == 2 %}
+                  <h1> February {{yr}}</h1>
+               {% elif mon == 3 %}
+                  <h1> March {{yr}}</h1>
+               {% elif mon == 4 %}
+                  <h1> April {{yr}}</h1>
+               {% elif mon == 5 %}
+                  <h1> May {{yr}}</h1>
+               {% elif mon == 6 %}
+                  <h1> June {{yr}}</h1>
+               {% elif mon == 7 %}
+                  <h1> July {{yr}}</h1>
+               {% elif mon == 8 %}
+                  <h1> August {{yr}}</h1>
+               {% elif mon == 9 %}
+                  <h1> September {{yr}}</h1>
+               {% elif mon == 10 %}
+                  <h1> October {{yr}}</h1>
+               {% elif mon == 11 %}
+                  <h1> November {{yr}}</h1>
+               {% elif mon == 12 %}
+                  <h1> December {{yr}}</h1>
+               {% endif %}
+  </div>   
+    <div class="jk2">  <form action = "http://localhost:5000/nextcal" method = "post">
+    <input type="hidden" name="mona" value={{mon}}>
+        <input type="hidden" name="yra" value={{yr}}>  
+    <input type="submit" value=&#10095>  
+    </form>
+    </div>
+ <div class="jk3"> <a href="http://localhost:5000/"> Home </a> </div>
+</div>
+
+<ul class="weekdays">
+  <li>Mon</li>
+  <li>Tue</li>
+  <li>Wed</li>
+  <li>Thu</li>
+  <li>Fri</li>
+  <li>Sat</li>
+  <li>Sun</li>
+</ul>
+
+<ul class="days">
+{% for i in range(first) %} <li class="secret">{{i}}</li> {% endfor %}
+{% for i in range(1,last) %} {% if i == dy %} <li><span class="active"><a href="http://localhost:5000/caleves/{{i}}/{{mon}}/{{yr}}">{{i}}</a></span></li> {% elif i in liss %} <li><span class="used"><a href="http://localhost:5000/caleves/{{i}}/{{mon}}/{{yr}}">{{i}}</a></span></li>
+{% else %} <li><a href="http://localhost:5000/caleves/{{i}}/{{mon}}/{{yr}}">{{i}}</a></li> {% endif %} {% endfor %}
+
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<html>
+      <head>
+ <style>
+ #cond{
+  display: none;
+ }
+</style>
+ <script type="text/javascript">
+
+function scheck() {
+    if (document.getElementById('bss1').value=="others") {
+        document.getElementById('cond').style.display = 'block';
+    }
+    else document.getElementById('cond').style.display = 'none';
+
+}
+
+</script>      
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link  type="text/css" rel="stylesheet" href="{{url_for('static', filename='base.css')}}">
+      </head>
+      {% extends "base.html" %}
+       {% block title %}Home{% endblock %}
+       {% block body %}
+      {% if row['Expenditure'] %}
+  <h2 style = "text-align: center;"><u>Edit Expenditure</u></h2>
+      {% else %}
+  <h2 style = "text-align: center;"><u>Add Expenditure</u></h2>
+      {% endif %}   
+      <body style="background-color: lightgreen">
+      {% if row['Expenditure'] %}
+      <form action = "http://localhost:5000/editrec_exp" method = "post" enctype = "multipart/form-data">
+      {% else %}
+      <form action = "http://localhost:5000/addrec_exp" method = "post" enctype = "multipart/form-data">
+      {% endif %}
+       <div class="container"> 
+        <div class="form-group">
+      <label> Select Category </label>
+      <select class="form-group" name = "Category"  id = "bss1" onchange="scheck();">
+         <option value="">Choose one …</option>      
+         <option value = "Grocery"> Grocery </option>
+         <option value = "Movie"> Movie </option>
+         <option value = "Trip"> Trip </option>
+         <option value = "Dining"> Fine dining </option>
+         <option value = "Hospital"> Hospital </option>
+         <option value = "Fees"> Fees/Taxes </option>
+         <option value = "Electronics"> Electronics </option>
+         <option value = "Social  Service"> Social Service </option>
+         <option value = "others"> Others </option>
+      </select>      
+          <input type="text" name="cat2" id="cond" placeholder="Specify Other Category">
+
+      </div>
+  <div class="form-group"> <label> Expenditure: </label> <input type = "text" name = "Expenditure" class = "form-control" value = "{{row['Expenditure']}}" required/>
+  </div>
+  <div class="form-group"><label>
+    Price:
+  </label> <input class = "form-control" type = "text" name = "Price" value = "{{row['Price']}}" required/>
+  </div>  
+  <div class="form-group">
+        <label>Location:</label><input class="form-control" type = "text" name = "Location" value = "{{row['Location']}}"/>
+  </div>
+  <div class="form-group">
+    <label>
+      Date:
+    </label>
+    <input class="form-control" type = "date" name = "ExpDate" value = "{{row['Tdate']}}" required/>
+  </div>
+        <div class="form-group"> 
+          <label>
+            Time:
+          </label>
+          <input class="form-control" type = "time" name = "ExpTime" value = "{{row['Ttime']}}"/>
+  </div>
+  <input type="hidden" name ="idee" value="{{row['ID']}}">
+
+  <div class="btn">
+            <input type = "submit" class="btn btn-info" value = "Submit" />
+  </div>
+  
+      </form>
+    {% endblock %}
+   </body>
+</html>

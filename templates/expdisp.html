@@ -1,0 +1,125 @@
+<html>
+
+   <head>
+      <script type = "text/javascript" 
+         src = "{{ url_for('static', filename = 'main.js') }}" ></script>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+      <style> 
+      body{
+        position: relative;
+      }
+      .tcolor{
+        background-color: black;
+        height: 10vh;
+        color: white;
+      }
+      .taa{
+        position: relative;
+        top: 30%;
+      }
+      .wcolor{
+        color: white;
+      }
+      .stupid{
+        background-color: #80deea !important
+      }
+      .tpose{
+      position: absolute;
+      top: 28vh;
+      }
+      </style>
+   </head>
+   
+   {% extends "base.html" %}
+   {% block title %}Home{% endblock %}
+   {% block body %}
+   <form method="POST" class="tcolor" action="/expsearch" accept-charset="UTF-8">
+   <div class="tcolor form-row">
+   	 <div class="col-md-6 mb-3">
+     Name of Expenditure:<input class="form-control" placeholder="Search for expenditure" autocorrect="off" autocomplete="off" name="keyword" type="search">
+     </div>
+     		<div class="col-md-3 mb-3">
+      Select Category:    	<select name = "pcat" class="form-control">
+    		 <option value ="">All </option>
+         <option value = "movie"> Movie </option>
+         <option value = "grocery"> Grocery </option>
+         <option value = "trip"> Trip </option>
+         <option value = "fine dining"> Fine dining </option>
+         <option value = "hospital"> Hospital </option>
+         <option value = "fees"> Fees/Taxes </option>
+         <option value = "others"> Others </option>
+    	</select>  
+              </div>
+
+  <div class="col-md-2 mb-3">
+  <br>
+    <button type="submit" class="btn btn-success form-control">Search</button>
+    </div>
+      </div>
+    <div class="tcolor form-row">    
+		<div class="col-md-2 mb-3">
+	      Date:<input class="form-control" type = "date" name = "pdate" />
+		</div>
+	<div class="col-md-3 mb-3">
+	      Location:<input class="form-control" type = "text" name = "plocation" placeholder = "Location" />
+	</div>
+  <div class="col-md-2 mb-3">
+        Price:<input class="form-control" type = "text" name = "lprice" placeholder = "Lower Bound" />
+  </div>
+  <br>
+   <div class="col-md-2 mb-3">
+    <input class="form-control" type = "text" name = "uprice" placeholder = "Upper Bound" />
+  </div>
+  </div>  
+  </form>
+      <table class="table table-responsive-md tpose">
+      <thead class="cyan lighten-3 stupid">
+        <tr> 
+            <th class="th-lg">Sr.No</th>
+            <th class="th-lg">Category</th>
+            <th class="th-lg">Expenditure</th>
+            <th class="th-lg">Price(Rs)</th>
+            <th class="th-lg">Location</th>
+            <th class="th-lg">Date</th>
+            <th class="th-lg">Day</th>
+            <th class="th-lg">Time</th>
+            <th class="th-lg text-center">Actions</th>
+         </tr>
+        </thead> 
+         {% for row in rows if row["Expenditure"] %}
+         <tbody>
+            <tr>
+               <td>{{loop.index}}</td>
+               <td>{{row["Category"]}}</td>
+               <td>{{row["Expenditure"]}}</td> 
+               <td>{{row["Price"]}}</td> 
+               <td>{{row["Location"]}}</td>
+               <td>{{row["Tdate"]}}</td>
+               {% if row["Tday"] == 0 %}
+                  <td>Monday</td>
+               {% elif row["Tday"] == 1 %}
+                  <td> Tuesday </td>
+               {% elif row["Tday"] == 2 %}
+                  <td> Wednesday </td>
+               {% elif row["Tday"] == 3 %}
+                  <td> Thursday </td>
+               {% elif row["Tday"] == 4 %}
+                  <td> Friday </td>
+               {% elif row["Tday"] == 5 %}
+                  <td> Saturday </td>
+               {% elif row["Tday"] == 6 %}
+                  <td> Sunday </td>
+               {% endif %}
+               <td>{{row["Ttime"]}}</td>
+               <td class="text-center"><a class="wcolor btn btn-primary" href="http://localhost:5000/edit_exp/{{row['ID']}}">Edit</a><a class="btn btn-danger wcolor" href="http://localhost:5000/del_exp/{{row['ID']}}">Delete</a></td>
+              
+            </tr>
+   {% else %}
+      <h1>No records found!</h1>
+         {% endfor %}
+      </table> 
+   {% endblock %}
+</html>

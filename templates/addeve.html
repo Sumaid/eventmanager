@@ -1,0 +1,97 @@
+<html>
+ <head>
+ <style>
+ #cond{
+ 	display: none;
+ }
+</style>
+ <script type="text/javascript">
+
+function scheck() {
+    if (document.getElementById('bss1').value=="others") {
+        document.getElementById('cond').style.display = 'block';
+    }
+    else document.getElementById('cond').style.display = 'none';
+
+}
+
+</script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link  type="text/css" rel="stylesheet" href="{{url_for('static', filename='base.css')}}">
+ 
+  </head>
+  {% extends "base.html" %}
+   {% block title %}Home{% endblock %}
+   {% block body %}
+  <!-- <h2 style = "text-align: center;"><u> Add Event </u></h2>
+   --> 
+      {% if row['Event'] %}
+   <h2 style = "text-align: center;"><u>Edit Event</u></h2>
+       {% else %}
+   <h2 style = "text-align: center;"><u>Add Event</u></h2>
+       {% endif %}   
+   <body style="background-color:lightgreen">
+      {% if row['Event'] %}
+      <form action = "http://localhost:5000/editrec_eve" method = "post" enctype = "multipart/form-data">
+      {% else %}
+      <form action = "http://localhost:5000/addrec_eve" method = "post" enctype = "multipart/form-data">
+      {% endif %}
+    <div class="container"> 
+     <div class=form-group>
+      <label for="Category"> Select Category </label>
+      <select class=form-control name = "Category" id = "bss1" onchange="scheck();" required>
+ 		 <option value="">Choose one …</option>      
+         <option value = "movie"> Movie </option>
+         <option value = "socialising"> Socialising </option>
+         <option value = "trip"> Trip </option>
+         <option value = "fine dining"> Fine dining </option>
+         <option value = "hospital"> Hospital </option>
+         <option value = "others"> Others </option>
+      </select> 
+          <input type="text" name="cat2" id="cond" placeholder="Specify Other Category">
+      </div>
+  <div class=form-group>
+    <label for="Event">Event Name:</label>
+        <input width=50% class=form-control type = "text" name = "Event" value = "{{row['Event']}}" required/>
+  </div>
+  <div class="form-group">
+    <label for="Location">Location:</label> 
+         <input class="form-control" type = "text" value = "{{row['Location']}}" name = "Location" />
+  </div>
+  <div class="form-group">
+    <label for="EventDate"> Event Date: </label> 
+      <input  class="form-control" type = "date" name = "EventDate"  value = "{{row['Tdate']}}" required/>
+  </div>
+    <div class="form-group">
+     <label for="EventTime"> Event Time: </label> 
+      <input class= "form-control" value = "{{row['Ttime']}}" type = "time" name = "EventTime"/>
+  </div>
+  <div class="form-group">
+     <label for="Description"> Description: </label> 
+     <input class = "form-control" value = "{{row['Description']}}" type = "text" name = "Description"/>
+  </div>
+  
+      {% if row['ImgLink'] %}
+      
+  <div class="form-control-file";>
+          <a href="../{{row['ImgLink']}}">Click to see image</a>
+          <br> Change image of event <br> <input class="form-control-file" type = "file" name = "file" value = "{{row['ImgLink']}}" accept="image/*"  />
+  </div>
+      {% else %}
+  <div class="form-control-file"> <br> 
+           Add an image of the event <br> <input class="form-control-file" type = "file" name = "file" value = "{{row['ImgLink']}}" accept="image/*"  />
+  </div>
+      {% endif %}  
+  <input type="hidden" name ="idee" value="{{row['ID']}}">
+  <br>
+  <br>
+  
+
+  <div class="btn">
+            <input type = "submit" class="btn btn-info" value = "Submit" />
+  </div>
+      </div>
+      </form>
+    {% endblock %}
+    </body>
+</html>

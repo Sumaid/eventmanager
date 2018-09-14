@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+   <h2 style = "text-align: center;">{{ message }}</h2>
+   <body link="blue">
+    <fieldset>
+      <legend>Event Details</legend>
+      <table border = 1 cellspacing=5 width=50% height=50px bgcolor="#ffff9f">
+        <tr> 
+            <th>Sr.No</th>
+            <th>Category</th>
+            <th>Event</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Time</th>
+	         <th>Description</th>
+	         <th>Image</th>
+            <th>Delete</th>
+         </tr>
+         
+         {% for row in rows if row["Event"] %}
+            <tr>
+               <td>{{loop.index}}</td>
+               <td>{{row["Category"]}}</td>
+               <td>{{row["Event"]}}</td>
+               <td>{{row["Location"]}}</td>
+               <td>{{row["Tdate"]}}</td>
+               {% if row["Tday"] == 0 %}
+                  <td>Monday</td>
+               {% elif row["Tday"] == 1 %}
+                  <td> Tuesday </td>
+               {% elif row["Tday"] == 2 %}
+                  <td> Wednesday </td>
+               {% elif row["Tday"] == 3 %}
+                  <td> Thursday </td>
+               {% elif row["Tday"] == 4 %}
+                  <td> Friday </td>
+               {% elif row["Tday"] == 5 %}
+                  <td> Saturday </td>
+               {% elif row["Tday"] == 6 %}
+                  <td> Sunday </td>
+               {% endif %}
+               <td>{{row["Ttime"]}}</td>
+	       <td>{{row["Description"]}}</td>
+               <td><a href="{{row['ImgLink']}}">Click</a></td>                         
+               <td><a href="/del_eve/{{row['ID']}}">Click</a></td>
+            </tr>
+	 {% else %}
+	    <h1>No events found!</h1>
+         {% endfor %}
+      </table> 
+      <fieldset>
+      <br><a href = "/">Go back to home page</a>
+   </body>
+</html>

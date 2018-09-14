@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+   <body link="blue">
+    <fieldset>
+      <legend>Event Details</legend>
+       <h2 style = "text-align: center;">{{ evmessage }}</h2>
+      <table border = 1 cellspacing=5 width=50% height=50px bgcolor="#ffff9f">
+        <tr> 
+            <th>Sr.No</th>
+            <th>Event</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Description</th>
+         </tr>
+         
+         {% for row in evrows if row["Event"] %}
+            <tr>
+               <td> {{loop.index}}</td>
+               <td>{{row["Event"]}}</td>
+               <td>{{row["Location"]}}</td>
+               <td>{{row["Tdate"]}}</td>
+               <td>{{row["Ttime"]}}</td>
+          <td>{{row["Description"]}}</td>
+            </tr>
+    {% else %}
+       <h1>No events found!</h1>
+         {% endfor %}
+      </table> 
+      </fieldset>
+    <fieldset>
+      <legend>Expenditure Details</legend>
+       <h2 style = "text-align: center;">{{ exmessage }}</h2>
+        <table border = 1 cellspacing=5 width=50% height=50px bgcolor="#ffff9f">
+        <tr> 
+            <th>Sr.No</th>
+            <th>Expenditure</th>
+            <th>Price</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Time</th>
+         </tr>
+         
+         {% for row in exrows if row["Expenditure"] %}
+            <tr>
+               <td> {{loop.index}}</td>
+               <td>{{row["Expenditure"]}}</td>
+               <td>{{row["Price"]}}</td>
+               <td>{{row["Location"]}}</td>
+               <td>{{row["Tdate"]}}</td>
+               <td>{{row["Ttime"]}}</td>
+            </tr>
+    {% else %}
+       <h1>No records found!</h1>
+         {% endfor %}
+      </table> 
+      </fieldset>      
+      <br><a href = "/">Go back to home page</a>
+   </body>
+</html>

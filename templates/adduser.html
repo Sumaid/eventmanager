@@ -1,0 +1,28 @@
+<html>
+  <h2 style = "text-align: center;">Registration Form</h2>
+   <body>
+      <form action = "http://localhost:5000/addrec" method = "post">
+       <fieldset>
+         <legend>Registration Form</legend>
+	 
+	<div style = font-size:20px; font-weight:bold; margin-left:150px;><br>
+          Enter Name:<br> <input type = "text" name = "nm" required/>
+	</div>
+	<div style = font-size:20px; font-weight:bold; margin-left:150px;><br>
+	  Enter Password:<br> <input type = "password" name = "pswd" id = "password" required/>
+	</div>
+	<div style = font-size:20px; font-weight:bold; margin-left:150px;><br>
+	    Enter Email-id:<br> <input type = "email" name = "email" required/>
+	</div>
+        <div style = font-size:20px; font-weight:bold; margin-left:150px;><br>
+	   Contact No:<br> <input type = "text" pattern="[7-9]{1}[0-9]{9}" title="Enter valid Indian phone number" name = "cntct"/>
+	</div>
+	<div style = font-size:20px; font-weight:bold; margin-left:150px;><br>
+            <input type = "submit" value = "submit" />
+	</div>
+	
+	</fieldset>
+      </form>
+      <br><a href = "/">Go back to home page</a>
+   </body>
+</html>
