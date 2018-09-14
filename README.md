@@ -1,6 +1,6 @@
-# eventmanager
+# Events Manager
 
-This webapp is essentially a events and expenditure management app with easy to use and simplistic user interface. 
+This webapp is essentially a events and expenditure management app with easy to use and simplistic user interface.This webapp is based on flask framework with mysql for database support.
 
 A) User Features
 	a) Events	
@@ -34,6 +34,7 @@ The requisite libraries to be installed are as follows:-
 2) sqlite3
 3) responses
 4) hashlib
+5) python-dateutil
 
 ```
 pip install flask
